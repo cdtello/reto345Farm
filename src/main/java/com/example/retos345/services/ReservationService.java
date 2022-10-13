@@ -20,6 +20,19 @@ public class ReservationService {
         }
 
         // METODOS CRUD
+        // *******  INICIO REPORTES *********
+        public List<Reservation> getReservationsReportClients(){
+            return this.reservationRepository.findAll();
+        }
+        public List<Reservation> getReservationsReportStatus(){
+            return this.reservationRepository.findAll();
+        }
+        public List<Reservation> getReservationsReportDates(String start, String end){
+            return this.reservationRepository.findAll();
+        }
+        // *******  FIN REPORTES *********
+
+
         public List<Reservation> getListReservations(){
             return this.reservationRepository.findAll();
         }
