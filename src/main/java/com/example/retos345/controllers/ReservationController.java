@@ -66,8 +66,8 @@ public class ReservationController {
     }
 
     @GetMapping("/report-status")
-    public ResponseEntity<List<Reservation>> getReservationsReportStatus(){
-        return new ResponseEntity<List<Reservation>>(this.reservationService.getReservationsReportStatus(), HttpStatus.OK);
+    public ResponseEntity<String> getReservationsReportStatus(){
+        return new ResponseEntity<String>(this.reservationService.getReservationsReportStatus(), HttpStatus.OK);
     }
 
     @GetMapping("/report-clients")
