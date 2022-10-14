@@ -31,8 +31,15 @@ public class ReservationService {
 
         // METODOS CRUD
         // *******  INICIO REPORTES *********
-        public List<Reservation> getReservationsReportClients(){
-            return this.reservationRepository.findAll();
+        public List<Client> getReservationsReportClients(){
+            List<Client> clients = this.clientRepository.findAll();
+            for(int i=0; i<clients.size(); i++){
+                System.out.println("******* CLIENTE NUMERO ******* "+ (i+1));
+                int total = clients.get(i).getReservations().size();
+                System.out.println("total:"+ total);
+                System.out.println("client:"+ clients.get(i).getName());
+            }
+            return this.clientRepository.findAll();
         }
 
         public String getReservationsReportStatus(){
