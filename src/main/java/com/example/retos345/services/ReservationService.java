@@ -1,11 +1,18 @@
 package com.example.retos345.services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.retos345.entities.Client;
 import com.example.retos345.entities.Reservation;
+import com.example.retos345.repositories.ClientRepository;
 import com.example.retos345.repositories.ReservationRepository;
 
 
@@ -14,6 +21,9 @@ public class ReservationService {
     
         @Autowired
         private ReservationRepository reservationRepository;
+
+        @Autowired
+        private ClientRepository clientRepository;
 
         public ReservationService(ReservationRepository reservationRepository) {
             this.reservationRepository = reservationRepository;
@@ -28,7 +38,18 @@ public class ReservationService {
             return this.reservationRepository.findAll();
         }
         public List<Reservation> getReservationsReportDates(String start, String end){
-            return this.reservationRepository.findAll();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-dd", Locale.ENGLISH);
+            formatter.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+
+            Date startDate = new Date();
+            Date endDate = new Date(); 
+            try {
+                startDate = formatter.parse(start);
+                endDate = formatter.parse(end);
+            } catch (ParseException e) {
+                e.printStackTrace(); 
+            }
+            return this.reservationRepository.findByStartDateBetween(startDate, endDate);
         }
         // *******  FIN REPORTES *********
 
