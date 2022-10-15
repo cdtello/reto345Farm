@@ -2,6 +2,7 @@ package com.example.retos345.services;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.retos345.entities.Client;
+import com.example.retos345.entities.ReportClient;
 import com.example.retos345.entities.Reservation;
 import com.example.retos345.repositories.ClientRepository;
 import com.example.retos345.repositories.ReservationRepository;
@@ -31,15 +33,14 @@ public class ReservationService {
 
         // METODOS CRUD
         // *******  INICIO REPORTES *********
-        public List<Client> getReservationsReportClients(){
-            List<Client> clients = this.clientRepository.findAll();
-            for(int i=0; i<clients.size(); i++){
-                System.out.println("******* CLIENTE NUMERO ******* "+ (i+1));
-                int total = clients.get(i).getReservations().size();
-                System.out.println("total:"+ total);
-                System.out.println("client:"+ clients.get(i).getName());
+        public List<ReportClient> getReservationsReportClients(){
+            List<ReportClient> listReportClients = new ArrayList();
+            List<Client> listClients = this.clientRepository.findAll();
+            for(int i=0; i<listClients.size(); i++){
+                ReportClient reportClient = new ReportClient(listClients.get(i));
+                listReportClients.add(reportClient);
             }
-            return this.clientRepository.findAll();
+            return listReportClients;
         }
 
         public String getReservationsReportStatus(){
